@@ -1,4 +1,3 @@
-version: '3'
 services:
   db:
     image: postgres:13
@@ -10,6 +9,8 @@ services:
       - '5432:5432'
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
   app:
     build: app
     depends_on:
@@ -21,8 +22,17 @@ services:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
     volumes:
-      - .:/app
+      - app:/app
+    tty: true
     command: bash
+    networks:
+      - app-network
+
 
 volumes:
   db_data:
+  app:
+networks:
+  app-network:
+    driver: bridge
+

@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 
 def populate_database(session: Session):
     fake = faker.Faker()
-    fake.seed(0)
+    faker.Faker.seed(0)
 
     countries = list[models.Country]()
     for _ in range(10):
